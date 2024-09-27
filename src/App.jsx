@@ -8,7 +8,7 @@ function App() {
     <>
 
       <div className="bg-black py-4 mb-5">
-        <h1 className="font-poppins font-bold text-white text-center  text-2xl uppercase tracking-widest">Movie Search App</h1>
+        <h1 className="font-poppins font-bold text-white text-center  text-2xl uppercase tracking-widest">Movies Search App</h1>
     </div>
     <Routes>
       <Route path="/" element={<SearchPage />} />
