@@ -57,7 +57,6 @@ If the search term yields no results or if the API request fails, a user-friendl
        
     - components
       - MovieCard.jsx
-      - Pagination.jsx
         
     - pages
       - SearchPage.jsx  
