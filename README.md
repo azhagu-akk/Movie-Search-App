@@ -38,8 +38,7 @@ This is a movie search web application that interacts with the OMDB API to allow
 1. **Search for Movies :** Enter a movie title or keyword into the search bar and click "Search." Results will be displayed in a grid layout with posters, titles, and release years.
 Use the dropdown filter to narrow results by Movie, Series, or Episode.
 
-2. **Pagination :** The app supports pagination, allowing users to browse through multiple pages of results.
-At the bottom of the search results, navigate through pages to see more movies.
+2. **Infinite Scroll :**  At the bottom of the search results, navigate through pages to see more movies.
 
 3. **Movie Details :** Click on any movie to view its details. The details page displays the full poster, title, release year, genre, plot summary, cast, and ratings.
 Return to the search results using the "Back to search results" button.
