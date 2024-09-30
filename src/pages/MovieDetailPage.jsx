@@ -7,7 +7,10 @@ const MovieDetailPage = () => {
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const location = useLocation(); // To access search state
+
+  // To access search state
+
+  const location = useLocation(); 
 
   useEffect(() => {
     const getMovieDetails = async () => {
@@ -34,7 +37,12 @@ const MovieDetailPage = () => {
 
   if (error) return <p className="text-red-500">{error}</p>;
 
-  if (!movie) return <p className="text-blue-500 font-poppins h-screen flex justify-center items-center ">Loading...</p>;
+  if (!movie)
+    return (
+      <p className="text-blue-500 font-poppins h-screen flex justify-center items-center ">
+        Loading...
+      </p>
+    );
 
   return (
     <div className="container mx-auto p-4">

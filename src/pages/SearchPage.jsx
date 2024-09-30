@@ -7,7 +7,12 @@ const SearchPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const initialSearchTerm = location.state?.searchTerm || ""; 
+  // Retrieve state from location (to preserve search state when returning from MovieDetailPage)
+
+  const initialSearchTerm = location.state?.searchTerm || "";
+
+  // Reset to empty on refresh
+
   const initialPage = location.state?.page || 1;
   const initialType = location.state?.type || "";
 
@@ -19,9 +24,15 @@ const SearchPage = () => {
   const [type, setType] = useState(initialType);
   const [loading, setLoading] = useState(false);
 
+  // Observer reference for infinite scroll
+
   const observer = useRef();
 
+  // Effect to reset search if page is refreshed
+
   useEffect(() => {
+    // If search term is empty (likely after a refresh), reset movies and total results
+
     if (!initialSearchTerm) {
       setMovies([]);
       setTotalResults(0);
@@ -53,14 +64,20 @@ const SearchPage = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    setMovies([]); 
+
+    // Clear movies when starting a new search
+
+    setMovies([]);
     setPage(1);
     searchMovies(1);
   };
 
   const handleFilterChange = (e) => {
     setType(e.target.value);
-    setPage(1); 
+
+    // Reset to the first page when changing filter
+
+    setPage(1);
     setMovies([]);
   };
 
@@ -79,6 +96,8 @@ const SearchPage = () => {
     },
     [loading, totalResults, movies.length]
   );
+
+  // Navigate to MovieDetailPage and pass search state
 
   const handleMovieClick = (movieId) => {
     navigate(`/movie/${movieId}`, {
@@ -138,7 +157,6 @@ const SearchPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {movies.map((movie, index) => {
           if (movies.length === index + 1) {
-          
             return (
               <div ref={lastMovieElementRef} key={movie.imdbID}>
                 <MovieCard
