@@ -29,7 +29,7 @@ const StarredMoviesPage = () => {
       </div>
 
       {starredMovies.length === 0 ? (
-        <p>You have not starred any movies yet.</p>
+        <p className="font-poppins">You have not starred any movies yet.</p>
       ) : (
         <div className="grid grid-cols-4 gap-4 mt-4">
           {starredMovies.map((movie) => (
