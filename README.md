@@ -10,6 +10,8 @@ This is a movie search web application that interacts with the OMDB API to allow
 ## Features
 
 - **Movie Search:** Users can search for movies, series, or episodes by entering a title or keyword.
+
+- **Starred Movies:** Star and unstar movies, with the starred list stored in localStorage for persistence.
   
 - **Movie Type Filtering:** A dropdown filter allows users to narrow the search results by type (Movie, Series, Episode).
   
@@ -35,6 +37,7 @@ This is a movie search web application that interacts with the OMDB API to allow
 - **OMDB API:** External API for fetching movie, series, and episode data.
 
 ## Usage
+
 1. **Search for Movies :** Enter a movie title or keyword into the search bar and click "Search." Results will be displayed in a grid layout with posters, titles, and release years.
 Use the dropdown filter to narrow results by Movie, Series, or Episode.
 
@@ -46,6 +49,8 @@ Return to the search results using the "Back to search results" button.
 4. **Error Handling :**
 If the search term yields no results or if the API request fails, a user-friendly error message will be displayed.
 
+5. **Starred Movies:** Star and unstar movies, with the starred list stored in localStorage for persistence.
+
 
 ## File Structure
 
@@ -56,6 +61,7 @@ If the search term yields no results or if the API request fails, a user-friendl
        
     - components
       - MovieCard.jsx
+      - StarredMoviesPage.jsx
         
     - pages
       - SearchPage.jsx  
