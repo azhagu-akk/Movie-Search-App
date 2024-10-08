@@ -17,6 +17,7 @@ const SearchPage = () => {
   const initialType = location.state?.type || "";
 
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
+  const [starredMovies, setStarredMovies] = useState([]);
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(initialPage);
   const [totalResults, setTotalResults] = useState(0);
@@ -46,6 +47,29 @@ const SearchPage = () => {
       searchMovies(page);
     }
   }, [searchTerm, page, type]);
+
+  useEffect(() => {
+    // Load starred movies from localStorage when component mounts
+    const savedStarredMovies =
+      JSON.parse(localStorage.getItem("starredMovies")) || [];
+    setStarredMovies(savedStarredMovies);
+  }, []);
+
+  // Define the toggleStarMovie function
+  const toggleStarMovie = (movie) => {
+    let updatedStarredMovies;
+    if (starredMovies.find((starred) => starred.imdbID === movie.imdbID)) {
+      // Unstar the movie if it is already starred
+      updatedStarredMovies = starredMovies.filter(
+        (starred) => starred.imdbID !== movie.imdbID
+      );
+    } else {
+      // Star the movie if it's not starred
+      updatedStarredMovies = [...starredMovies, movie];
+    }
+    setStarredMovies(updatedStarredMovies);
+    localStorage.setItem("starredMovies", JSON.stringify(updatedStarredMovies)); // Save to localStorage
+  };
 
   const searchMovies = async (page) => {
     setLoading(true);
@@ -130,7 +154,7 @@ const SearchPage = () => {
         </button>
       </form>
 
-      <div className="mb-4 ">
+      <div className="mb-4 flex justify-between items-center">
         <select
           onChange={handleFilterChange}
           value={type}
@@ -141,6 +165,12 @@ const SearchPage = () => {
           <option value="series">Series</option>
           <option value="episode">Episodes</option>
         </select>
+        <button
+          onClick={() => navigate("/starred")}
+          className="mt-4 bg-black text-white px-4 py-2 rounded-lg font-poppins hover:font-bold"
+        >
+          View Starred Movies
+        </button>
       </div>
 
       {error && (
@@ -153,6 +183,18 @@ const SearchPage = () => {
           No results found.
         </p>
       )}
+      <div className="grid grid-cols-4 gap-4 mt-4">
+        {movies.map((movie) => (
+          <MovieCard
+            key={movie.imdbID}
+            movie={movie}
+            isStarred={
+              !!starredMovies.find((starred) => starred.imdbID === movie.imdbID)
+            }
+            onStarClick={() => toggleStarMovie(movie)}
+          />
+        ))}
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {movies.map((movie, index) => {
@@ -162,6 +204,12 @@ const SearchPage = () => {
                 <MovieCard
                   movie={movie}
                   onClick={() => handleMovieClick(movie.imdbID)}
+                  isStarred={
+                    !!starredMovies.find(
+                      (starred) => starred.imdbID === movie.imdbID
+                    )
+                  }
+                  onStarClick={() => toggleStarMovie(movie)}
                 />
               </div>
             );
@@ -185,5 +233,10 @@ const SearchPage = () => {
     </div>
   );
 };
+
+// toggleStarMovie.propTypes = {
+//   movie: PropTypes.object.isRequired,
+// };
+
 
 export default SearchPage;
